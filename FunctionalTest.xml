@@ -15,8 +15,8 @@
 		<groups>
 			<run>
 				<include name="First Set"></include>
-				<exclude name="Second Set"></exclude>
-				<exclude name="Third Set"></exclude>
+				<include name="Second Set"></include>
+				<include name="Third Set"></include>
 			</run>
 		</groups>
 		<classes>
