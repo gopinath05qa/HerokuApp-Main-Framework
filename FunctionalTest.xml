@@ -12,16 +12,18 @@
 	<test name="Chrome FunctionalTest" parallel="false" thread-count="0">
 		<parameter name="browser" value="chrome"></parameter>
 		<parameter name="url" value="https://the-internet.herokuapp.com/"></parameter>
+		<!--<parameter name="url" value="https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"></parameter>-->
 		<groups>
 			<run>
 				<include name="First Set"></include>
-				<include name="Second Set"></include>
-				<include name="Third Set"></include>
+				<exclude name="Second Set"></exclude>
+				<exclude name="Third Set"></exclude>
+				<exclude name="Fourth"></exclude>
 			</run>
 		</groups>
 		<classes>
 			<class name="org.herokuapp.com.tests.HerokuAppSetTest1">
-				<!--<methods>
+<!--				<methods>
 					<include name="addandRemoveElements"></include>
 					<include name="basicAuthTest"></include>
 					<include name="brokenImagesTest"></include>
@@ -39,8 +41,8 @@
 					<include name="scrollupdowntest"></include>
 					<include name="alertHandle"></include>
 					<include name="waitHandleTest"></include>
-				</methods>-->
-			</class>
+				</methods>
+-->			</class>
 		</classes>
 	</test>
 	<test name="Firefox FunctionalTest" parallel="false" thread-count="0">

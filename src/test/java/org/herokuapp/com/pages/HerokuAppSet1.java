@@ -16,6 +16,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.pageobjects.herokuapp.PageObjects;
@@ -38,7 +39,9 @@ public class HerokuAppSet1 extends BasePage {
 	public HerokuAppSet1(WebDriver driver) {
 		super(driver);
 		seleniumHelper = new SeleniumHelper(driver);
-		pageobjects = new PageObjects(driver);
+//		pageobjects = new PageObjects(driver);    //old code - pagefact1
+		pageobjects = new PageObjects();
+		PageFactory.initElements(driver, pageobjects);
 	}
 //*****************************************************************************//
 
@@ -46,6 +49,7 @@ public class HerokuAppSet1 extends BasePage {
 		seleniumHelper.clickOnWebElement(pageobjects.clickaddremovelink);
 		try {
 			for (int i = 1; i <= 5; i++) {
+				seleniumHelper.waitForElementVisible(pageobjects.clickAddElementButton, 10);
 				seleniumHelper.clickOnWebElement(pageobjects.clickAddElementButton);
 				System.out.println("Element Added Successfully!");
 			}
@@ -71,6 +75,7 @@ public class HerokuAppSet1 extends BasePage {
 	}
 
 	public void basicAuth() { // This task not done properly
+
 		seleniumHelper.clickOnWebElement(pageobjects.clickBasicAuth);
 		ReportUtil.addScreenShot(LogStatus.PASS, "Just basicauth screen opened!");
 	}
@@ -390,4 +395,11 @@ public class HerokuAppSet1 extends BasePage {
 					"Something issue in the getGeoLocation!--This HeadLess Browser Issue--");
 		}
 	}
+
+	public void appLogin(String uname, String pwd) {
+		seleniumHelper.sendKeys(pageobjects.username, uname);
+		seleniumHelper.sendKeys(pageobjects.password, pwd);
+		seleniumHelper.clickOnWebElement(pageobjects.submitButton);
+	}
+
 }

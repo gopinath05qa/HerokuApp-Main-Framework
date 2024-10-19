@@ -3,19 +3,12 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="org.herokuapp.com.tests.HerokuAppSetTest1">
+      <class name="org.herokuapp.com.tests.LearnMorePageTest">
         <methods>
-          <include name="globalSetup"/>
-          <include name="challengingDomTest"/>
-          <include name="wrapUp"/>
-          <include name="afterTest"/>
-          <include name="wrapAllUp"/>
-          <include name="beforeMethod"/>
-          <include name="beforeTest"/>
-          <include name="afterMethod"/>
-          <include name="setup"/>
+          <include name="beforeClass"/>
+          <include name="waitcheck"/>
         </methods>
-      </class> <!-- org.herokuapp.com.tests.HerokuAppSetTest1 -->
+      </class> <!-- org.herokuapp.com.tests.LearnMorePageTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

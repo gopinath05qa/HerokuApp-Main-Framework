@@ -1,0 +1,1 @@
+{"uuid":"a4c17c7c-b9b4-4266-b995-8641c06667ad","name":"HeroKuAPp","children":["2a7f14e3-f801-478a-8db5-a47a23d1f37b"],"befores":[{"name":"globalSetup","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1726332057135,"stop":1726332057197}],"afters":[],"start":1726332057116,"stop":1726332063983}

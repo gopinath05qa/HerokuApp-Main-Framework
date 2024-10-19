@@ -1,0 +1,1 @@
+{"uuid":"123b7874-7dc3-49f9-9dfe-365186d45371","name":"org.herokuapp.com.tests.AmazonPageTest","children":["b5affe00-e0b5-4a80-89e0-f04686927701"],"befores":[{"name":"beforeClass","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1727673651695,"stop":1727673655364}],"afters":[],"start":1727673651670,"stop":1727673655633}

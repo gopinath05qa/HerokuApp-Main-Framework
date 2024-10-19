@@ -8,26 +8,29 @@
   </listeners>
   <test thread-count="5" name="Chrome FunctionalTest(failed)">
     <parameter name="browser" value="chrome"/>
-    <parameter name="url" value="https://the-internet.herokuapp.com/"/>
     <groups>
       <run>
         <include name="First Set"/>
         <exclude name="Second Set"/>
         <exclude name="Third Set"/>
+        <exclude name="Fourth"/>
       </run>
     </groups>
     <classes>
       <class name="org.herokuapp.com.tests.HerokuAppSetTest1">
         <methods>
-          <include name="globalSetup"/>
-          <include name="challengingDomTest"/>
-          <include name="wrapUp"/>
           <include name="afterTest"/>
-          <include name="wrapAllUp"/>
           <include name="beforeMethod"/>
-          <include name="beforeTest"/>
           <include name="afterMethod"/>
           <include name="setup"/>
+          <include name="addandRemoveElements"/>
+          <include name="globalSetup"/>
+          <include name="brokenImagesTest"/>
+          <include name="beforeTest"/>
+          <include name="wrapUp"/>
+          <include name="basicAuthTest"/>
+          <include name="checkBoxTest"/>
+          <include name="wrapAllUp"/>
         </methods>
       </class> <!-- org.herokuapp.com.tests.HerokuAppSetTest1 -->
     </classes>
