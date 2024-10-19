@@ -18,6 +18,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Parameters;
 
+import com.context.Constants;
 import com.context.WebDriverContext;
 import com.listeners.LogListener;
 import com.listeners.ReportListener;
@@ -31,12 +32,13 @@ import com.util.TestProperties;
 
 public class BaseTest {
 
-	public String excelpath = System.getProperty("user.dir") + "\\exceldata\\excel1.xls";
+	public String excelpath = System.getProperty("user.dir") + "\\ExcelData\\excel.xls";
 
 	protected WebDriver driver;
 
 	@Parameters({ "browser", "url" })
-	@BeforeMethod(groups = "First Set", alwaysRun = true)
+//	@BeforeMethod(groups = { "First Set" }, alwaysRun = true)  //without first set grouping it's working. anyway keep it if any issue uncommand it.
+	@BeforeMethod(alwaysRun = true)
 	public void beforeMethod(String browser, String url) {
 		System.out.println("\033[1mBefore Method Test Started!\033[0m");
 		if (browser.equalsIgnoreCase("chrome")
@@ -84,7 +86,7 @@ public class BaseTest {
 		System.out.println("\033[1mBefore Method Test Ended!\033[0m");
 	}
 
-	@AfterMethod(groups = "First Set", alwaysRun = true)
+	@AfterMethod(alwaysRun = true)
 	public void afterMethod() {
 		System.out.println("\033[1mAfter Method Started!\033[0m");
 		if (driver != null) {

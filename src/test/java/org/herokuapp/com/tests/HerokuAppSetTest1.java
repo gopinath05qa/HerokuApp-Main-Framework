@@ -1,24 +1,59 @@
 package org.herokuapp.com.tests;
 
 import java.awt.AWTException;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 import org.herokuapp.com.pages.HerokuAppSet1;
-import org.openqa.selenium.interactions.Actions;
-import org.testng.Assert;
+import org.herokuapp.com.pages.OrangeHRMPage;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.support.PageFactory;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import com.basetest.BaseTest;
+import com.basetest.BaseTest2;
 import com.factory.PageinstancesFactory;
-import com.listeners.RetryListener;
+import com.helper.SeleniumHelper;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
 
 //@Test(testName = "HerokuApp Test", description = "To Automate HerokuApp Functionalities")
+@Epic("Regression Test CRM") // these two lines seened from from random google search. just check what is the
+								// output coming..
+@Feature("Client Test")
 
-public class HerokuAppSetTest1 extends BaseTest {
+public class HerokuAppSetTest1 extends BaseTest2 {
+
+	HerokuAppSet1 app1;
+
+	@BeforeMethod(alwaysRun = true)
+	public void beforeMethod() {
+		System.out.println("\033[1mBefore Method Test Started!\033[0m");
+		System.out.println("Here URL Launching!");
+		driver.get("https://the-internet.herokuapp.com/");
+		app1 = new HerokuAppSet1(driver);
+
+////**********This one also working fine, but we need to optimize more thinks here..*************//
+//      // Open a new tab using JavaScript    
+//      ((JavascriptExecutor) driver).executeScript("window.open()");
+//      // Switch to the new tab
+//      driver.switchTo().window(driver.getWindowHandles().toArray()[1].toString());
+//      // Navigate to a URL in the new tab
+//      driver.get("https://the-internet.herokuapp.com/");
+		System.out.println("\033[1mBefore Method Test Ended!\033[0m");
+	}
 
 	@Test(groups = {
 			"First Set" }, enabled = true, priority = 0, testName = "Add/Remove Elements Test", description = "To Automate Add/Remove Elements")
 	public void addandRemoveElements() {
-		HerokuAppSet1 lau = PageinstancesFactory.getInstance(HerokuAppSet1.class);
-		lau.addRemoveElements();
+//		HerokuAppSet1 lau = PageinstancesFactory.getInstance(HerokuAppSet1.class);   //old code pagefact1 ******This also working fine!
+		app1.addRemoveElements();
 	}
 
 	@Test(groups = "First Set", enabled = true, priority = 1, testName = "Basic Auth Test", description = "To Automate Basic Auth")
@@ -34,7 +69,7 @@ public class HerokuAppSetTest1 extends BaseTest {
 	}
 
 //	@Test(retryAnalyzer = RetryListener.class, enabled = true, priority = 3, testName = "Add/Remove Elements Test", description = "To Automate Add/Remove Elements")
-	@Test(groups = "First Set", enabled = true, priority = 3, testName = "Add/Remove Elements Test", description = "To Automate Add/Remove Elements")
+	@Test(groups = "First Set", enabled = false, priority = 3, testName = "Add/Remove Elements Test", description = "To Automate Add/Remove Elements")
 	public void challengingDomTest() {
 		HerokuAppSet1 lau = PageinstancesFactory.getInstance(HerokuAppSet1.class);
 		lau.challengingDom();
@@ -117,4 +152,5 @@ public class HerokuAppSetTest1 extends BaseTest {
 		HerokuAppSet1 lau = PageinstancesFactory.getInstance(HerokuAppSet1.class);
 		lau.waitHandle();
 	}
+
 }

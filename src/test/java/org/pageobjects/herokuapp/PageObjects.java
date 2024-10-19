@@ -8,11 +8,12 @@ import org.openqa.selenium.support.FindBy;
 
 import com.basepage.BasePage;
 
-public class PageObjects extends BasePage {
+//public class PageObjects extends BasePage {  //old code - pagefact1
+	public class PageObjects {
 
-	public PageObjects(WebDriver driver) {
-		super(driver);
-	}
+//	public PageObjects(WebDriver driver) {    //old code - pagefact1
+//		super(driver);
+//	}
 
 	// **********Add/Remove WebElements*****************
 	@FindBy(xpath = "//*[text()='Add/Remove Elements']")
@@ -132,4 +133,12 @@ public class PageObjects extends BasePage {
 	@FindBy(xpath = "//button[text()='Click for JS Prompt']")
 	public WebElement clickpromptAlert;
 
+	// **********Add/Remove WebElements*****************
+	@FindBy(name = "username")
+	public WebElement username;
+	@FindBy(name = "password")
+	public WebElement password;
+	@FindBy(xpath = "//button[@type='submit']")
+	public WebElement submitButton;
+	
 }

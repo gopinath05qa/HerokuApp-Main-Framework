@@ -22,11 +22,11 @@ import com.util.TestProperties;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class BrowserLaunch {
+public class SeleniumLearn {
 
 	String allwindows;
 
-//*************Browser / URL launch*********************************************	
+//*************1.Browser / URL launch / Chrome Headless*********************************************	
 	public void browserLaunchMethod1() {
 		System.setProperty("webdriver.chrome.driver", Constants.CHROME_DRIVER_PATH);
 		WebDriver driver = new ChromeDriver();
@@ -52,7 +52,7 @@ public class BrowserLaunch {
 		System.out.println("Page Title: " + driver.getTitle());
 	}
 
-//*****************Navigations********************************************
+//*********************2.Navigations********************************************
 	public void navigations() {
 		WebDriverManager.chromedriver().setup();
 		WebDriver driver = new ChromeDriver();
@@ -63,7 +63,7 @@ public class BrowserLaunch {
 		driver.navigate().refresh();
 	}
 
-//**************Window Handling****************************************
+//******************3.Window Handling / Frame Handling / Alert Handling****************************************
 	public void moveNewTab() {
 		WebDriverManager.chromedriver().setup();
 		WebDriver driver = new ChromeDriver();
@@ -77,14 +77,13 @@ public class BrowserLaunch {
 		WebDriver driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.get("https://www.google.com");
-		String parentWindow = driver.getWindowHandle();
+		String parentWindow = driver.getWindowHandle();   //getting a parent window / current window id.
 		System.out.println("Parent Window :" + parentWindow);
 		driver.switchTo().newWindow(WindowType.TAB); // New tab open code
 		driver.get("https://the-internet.herokuapp.com/");
 		driver.findElement(By.linkText("Multiple Windows")).click();
 		driver.findElement(By.linkText("Click Here")).click();
-
-		ArrayList<String> windowlist = new ArrayList<String>(driver.getWindowHandles());
+		ArrayList<String> windowlist = new ArrayList<String>(driver.getWindowHandles());   //getting all window id's.
 		driver.switchTo().window(windowlist.get(1)); // this is without any loopings directly switch the tab.
 
 		for (String windows : windowlist) { // this is with help of looping and with conditions.
@@ -97,6 +96,7 @@ public class BrowserLaunch {
 		}
 	}
 
+//*********************4.TakeScreenshot*********************************************	
 	public void takeScreenshot() throws IOException {
 		WebDriverManager.chromedriver().setup();
 		WebDriver driver = new ChromeDriver();
@@ -108,6 +108,7 @@ public class BrowserLaunch {
 		FileUtils.copyFile(src, des);
 	}
 
+//******************5.Scroll UP/Down************************************************	
 	public void scrollUPDown() {
 		WebDriverManager.chromedriver().setup();
 		WebDriver driver = new ChromeDriver();
@@ -117,7 +118,7 @@ public class BrowserLaunch {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		BrowserLaunch launch = new BrowserLaunch();
+		SeleniumLearn launch = new SeleniumLearn();
 //		launch.browserLaunchMethod1();
 //		launch.browserLaunchMethod2();
 //		launch.chromeHeadlessShell();

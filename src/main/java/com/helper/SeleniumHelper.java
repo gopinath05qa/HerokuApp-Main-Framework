@@ -5,6 +5,8 @@ import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,14 +22,20 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.NoSuchFrameException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.google.common.base.Function;
 import com.util.LoggerUtil;
+
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
 
 public class SeleniumHelper {
 
@@ -398,10 +406,39 @@ public class SeleniumHelper {
 		element.sendKeys(Text);
 	}
 
-	/** * Wait Helper Methods */
+//************************* Wait Helper Methods ********************************//
+//*********************************************************************************
+//[[1.]]Hard Wait:
+	public void hardWait(int timeOutInMiliSec) throws InterruptedException {
+		Thread.sleep(timeOutInMiliSec);
+	}
 
+//[[2.]]Implicit Wait:  //once we apply working every each elements inside a class. So applied in basetest class. 
+
+//[[3.]]Explicit Wait:
+//(i)visibilityOf():
+	public WebElement visibilityOfreturnElement(WebElement element, int i) { // --->if you want to return element use
+																				// this method.
+//		WebDriverWait wait = getWait(Duration.ofSeconds(timeOutInSeconds));  //this is old framework structure
+		wait = new WebDriverWait(driver, Duration.ofSeconds(i));
+		return wait.until(ExpectedConditions.visibilityOf(element));
+	}
+
+	public void visibilityOfNoreturnElement(WebElement element, int i) { // --->This is no return element
+		wait = new WebDriverWait(driver, Duration.ofSeconds(i));
+		wait.until(ExpectedConditions.visibilityOf(element));
+	}
+
+	public boolean visibilityOfreturnElementisDisplayed(WebElement element, int i) { // --->if you want to return
+																						// element use this method.
+		wait = new WebDriverWait(driver, Duration.ofSeconds(i));
+		WebElement ele = wait.until(ExpectedConditions.visibilityOf(element));
+		return ele.isDisplayed();
+	}
+
+//[[4.]]Fluent Wait:	
 //	@SuppressWarnings("deprecat")  //--- gopi -- This code line forcing to remove that's why i commanded
-	public void waitForElement(WebElement element, int timeOutInSeconds) {
+	public void waitForElement(WebElement element, int timeOutInSeconds) { // old fluent wait method code...
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeOutInSeconds));
 		wait.ignoring(NoSuchElementException.class);
 		// wait.ignoring(ElementNotVisibleException.class);
@@ -409,6 +446,26 @@ public class SeleniumHelper {
 		wait.pollingEvery(Duration.ofSeconds(3));
 		wait.until(elementLocated(element));
 	}
+
+	public WebElement fluentwaitForElement(WebElement element, long timeoutSeconds, long pollingSeconds) {
+		FluentWait<WebDriver> fluentWait = new FluentWait<>(driver)
+//				FluentWait<WebDriver> fluentWait = new FluentWait<WebDriver>(driver)
+				.withTimeout(Duration.ofSeconds(timeoutSeconds)) // Custom
+				.pollingEvery(Duration.ofSeconds(pollingSeconds)) // Custom polling interval
+				.ignoring(NoSuchElementException.class, WebDriverException.class); // Ignoring exceptions
+
+		// Apply the wait for element to be visible
+		return fluentWait.until(ExpectedConditions.visibilityOf(element));
+	}
+
+//*****Some Old Methods(explicit wait)******//	
+//	public void waitForElementVisible(By locator, int timeOutInSeconds) {            //old method
+//	WebDriverWait wait = getWait(Duration.ofSeconds(timeOutInSeconds));
+//	wait.until(ExpectedConditions.visibilityOf(driver.findElement(locator)));
+//}
+
+//****************************************************************************************************************//
+//****************************************************************************************************************//	
 
 	private Function<WebDriver, Boolean> elementLocated(final WebElement element) {
 		return new Function<WebDriver, Boolean>() {
@@ -429,20 +486,6 @@ public class SeleniumHelper {
 		wait.ignoring(StaleElementReferenceException.class);
 		wait.ignoring(NoSuchFrameException.class);
 		return wait;
-	}
-
-	public void waitForElementVisible(By locator, int timeOutInSeconds) {
-		WebDriverWait wait = getWait(Duration.ofSeconds(timeOutInSeconds));
-		wait.until(ExpectedConditions.visibilityOf(driver.findElement(locator)));
-	}
-
-	public void waitForElementVisible(WebElement element, int timeOutInSeconds) {
-		WebDriverWait wait = getWait(Duration.ofSeconds(timeOutInSeconds));
-		wait.until(ExpectedConditions.visibilityOf(element));
-	}
-
-	public void hardWait(int timeOutInMiliSec) throws InterruptedException {
-		Thread.sleep(timeOutInMiliSec);
 	}
 
 	public WebElement handleStaleElement(By locator, int retryCount, int delayInSeconds) throws InterruptedException {
@@ -470,7 +513,6 @@ public class SeleniumHelper {
 		wait.until(elementLocatedBy(locator));
 		scrollIntoView(driver.findElement(locator));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-
 	}
 
 	public void waitForIframe(By locator, int timeOutInSeconds) {
@@ -507,6 +549,12 @@ public class SeleniumHelper {
 	/**
 	 * Method to verify the element is displayed
 	 */
+
+	public void waitForElementVisible(WebElement element, int timeOutInSeconds) {
+		WebDriverWait wait = getWait(Duration.ofSeconds(timeOutInSeconds));
+		wait.until(ExpectedConditions.visibilityOf(element));
+	}
+
 	public boolean isElementDisplayed(WebElement ele) {
 		boolean flag = false;
 		try {
@@ -695,13 +743,31 @@ public class SeleniumHelper {
 			throw new Exception("Exception : Invalid Direction (only scroll \"top\" or \"end\")");
 	}
 
-	// ************************Mouse
-	// Actions***************************************//
+// ************************Mouse Actions***************************************//
 	public void dragandDrop(WebElement sourceElement, WebElement targetElement) {
 		Actions actions = new Actions(driver);
 
 		// Perform the drag-and-drop action
 		actions.dragAndDrop(sourceElement, targetElement).perform();
+	}
+
+	public static String excelpath = System.getProperty("user.dir") + "\\ExcelData\\excel.xls";
+
+	public Object[][] readExcelData(String filePath, String sheetName) throws BiffException, IOException {
+		FileInputStream m = new FileInputStream(filePath);
+		Workbook excel = Workbook.getWorkbook(m);
+		Sheet sheet = excel.getSheet(sheetName);
+		int rowCount = sheet.getRows();
+		int colCount = sheet.getColumns();
+
+		Object[][] data = new Object[rowCount - 1][colCount];
+		for (int i = 1; i < rowCount; i++) {
+			for (int j = 1; j < colCount; j++) {
+				data[i - 1][j - 1] = sheet.getCell(j, i).getContents();
+			}
+		}
+		excel.close();
+		return data;
 	}
 
 	/** * Method to Explicitly wait for element to be enabled=click */
