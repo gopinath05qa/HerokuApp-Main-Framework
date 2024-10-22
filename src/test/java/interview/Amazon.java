@@ -14,21 +14,19 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class Amazon {
 
-	public static void main(String[] args) throws InterruptedException {
-		// TODO Auto-generated method stub
-
-		WebDriverManager.chromedriver().setup();
+	public void amaztest() throws InterruptedException {
+//		WebDriverManager.chromedriver().setup();
 		WebDriver driver = new ChromeDriver();
 		driver.get("https://www.amazon.in/ref=nav_logo");
 		driver.manage().window().maximize();
 
 		Thread.sleep(3000);
-		
+
 		driver.get("https://www.amazon.in/ref=nav_logo");
-		
+
 		driver.findElement(By.id("twotabsearchtextbox")).sendKeys("mobiles");
 		driver.findElement(By.id("nav-search-submit-button")).click();
-		
+
 //		driver.findElement(By.xpath("//*[@id=\"CardInstanceUY2C0QZL6PoN0kBpJs8DzQ\"]/a")).click();
 
 //		driver.findElement(
@@ -52,15 +50,14 @@ public class Amazon {
 
 		}
 
-		
 		Thread.sleep(5000);
 
-		WebElement elementToScroll = driver.findElement(By.xpath("(//div[@class='a-section a-spacing-mini sf-range-slider-row'])[1]"));
+		WebElement elementToScroll = driver
+				.findElement(By.xpath("(//div[@class='a-section a-spacing-mini sf-range-slider-row'])[1]"));
 
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].scrollIntoView(true);", elementToScroll);
 
-		
 		Thread.sleep(3000);
 
 		WebElement leftSlider = driver
@@ -161,6 +158,14 @@ public class Amazon {
 
 		}
 
+	}
+
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+
+		Amazon ama=new Amazon();
+		ama.amaztest();
+		
 	}
 
 }

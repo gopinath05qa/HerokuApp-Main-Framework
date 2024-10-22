@@ -449,7 +449,7 @@ public class SeleniumHelper {
 
 	public WebElement fluentwaitForElement(WebElement element, long timeoutSeconds, long pollingSeconds) {
 		FluentWait<WebDriver> fluentWait = new FluentWait<>(driver)
-//				FluentWait<WebDriver> fluentWait = new FluentWait<WebDriver>(driver)
+//				FluentWait<WebDriver> fluentWait = new FluentWait<WebDriver>(driver)  //you use like this as well.
 				.withTimeout(Duration.ofSeconds(timeoutSeconds)) // Custom
 				.pollingEvery(Duration.ofSeconds(pollingSeconds)) // Custom polling interval
 				.ignoring(NoSuchElementException.class, WebDriverException.class); // Ignoring exceptions
