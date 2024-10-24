@@ -7,18 +7,8 @@ import com.context.WebDriverContext;
 import com.relevantcodes.extentreports.LogStatus;
 import com.report.ExtentReportManager;
 
-/**
- * The Class is responsible for Reporting
- *
- * @author Omprakash darsi
- */
 public class ReportUtil {
 
-	/**
-	 * Adds the screen shot.
-	 *
-	 * @param message the message
-	 */
 	public static void addScreenShot(String message) {
 		String base64Image = "data:image/png;base64,"
 				+ ((TakesScreenshot) WebDriverContext.getDriver()).getScreenshotAs(OutputType.BASE64);
@@ -26,12 +16,6 @@ public class ReportUtil {
 				ExtentReportManager.getCurrentTest().addBase64ScreenShot(base64Image));
 	}
 
-	/**
-	 * Adds the screen shot.
-	 *
-	 * @param status  the status
-	 * @param message the message
-	 */
 	public static void addScreenShot(LogStatus status, String message) {
 		String base64Image = "data:image/png;base64,"
 				+ ((TakesScreenshot) WebDriverContext.getDriver()).getScreenshotAs(OutputType.BASE64);

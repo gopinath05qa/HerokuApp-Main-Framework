@@ -18,11 +18,6 @@ import jakarta.mail.internet.MimeBodyPart;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.mail.internet.MimeMultipart;
 
-/**
- *
- * @author Omprakash darsi
- */
-
 public class EmailConfig {
 
 	public static String dateName = null;

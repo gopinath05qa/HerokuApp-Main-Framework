@@ -2,7 +2,6 @@ package com.basetest;
 
 import java.time.Duration;
 
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -13,9 +12,9 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 import com.context.WebDriverContext;
@@ -23,12 +22,10 @@ import com.util.EmailConfig;
 import com.util.LoggerUtil;
 import com.util.TestProperties;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-
 public class BaseTest2 {
 
 	public String excelpath = System.getProperty("user.dir") + "\\ExcelData\\excel.xls";
-	
+
 	protected WebDriver driver;
 
 //	@BeforeMethod(alwaysRun = true) // ***here also working, but i commended here and used in each test
@@ -53,25 +50,41 @@ public class BaseTest2 {
 		System.out.println("\033[1mAfter Method Ended!\033[0m");
 	}
 
-	@Parameters({ "browser", "url" })
+//	@Parameters({ "browser", "url" })  //actually url using in direct Test classes i commanded here and as well as suite file.
+	@Parameters({ "browser", "headless" }) // instead of i'm using headless validation here.
 	@BeforeClass(alwaysRun = true)
-	protected void setup(String browser, String url) {
+//	protected void setup(@Optional("chrome") String browser, String url)  //url not needed here
+	protected void setup(@Optional("chrome") String browser, @Optional("false") String headless) { // here used
+																									// @Optional - this
+																									// purpose is, if
+																									// i'm not give
+																									// browser (or) url
+																									// in the testsuite
+																									// file, the
+																									// optional value
+																									// will take execute
+																									// program.
 		System.out.println("\033[1mBefore Class Started!\033[0m");
 
-		if (browser.equalsIgnoreCase("chrome")
-				&& TestProperties.getProperty("headlessBoolean").equalsIgnoreCase("true")) {
+//		if (browser.equalsIgnoreCase("chrome")
+//				&& TestProperties.getProperty("headlessBoolean").equalsIgnoreCase("true")) { // commanded this lines,
+//																								// because headless
+//																								// validation moved
+//																								// inside xml suite
+//																								// file.
+		if (browser.equalsIgnoreCase("chrome") && headless.equalsIgnoreCase("true")) {
 			ChromeOptions cops = new ChromeOptions();
 			cops.addArguments("--disable-notifications");
 			cops.addArguments("--headless");
 			cops.addArguments("--disable-gpu");
 			cops.addArguments("--window-size=1920,1080");
+			cops.addArguments(
+					"user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36");  //This line of code is very useful headless mode test. Because xpath cases not working in headless mode. after long search this workout..
 			driver = new ChromeDriver(cops);
 		} else if (browser.equalsIgnoreCase("chrome")) {
-			ChromeOptions cops = new ChromeOptions();
-			driver = new ChromeDriver(cops);
+			driver = new ChromeDriver();
 		}
-		if (browser.equalsIgnoreCase("firefox")
-				&& TestProperties.getProperty("headlessBoolean").equalsIgnoreCase("true")) {
+		if (browser.equalsIgnoreCase("firefox") && headless.equalsIgnoreCase("true")) {
 			FirefoxOptions fops = new FirefoxOptions();
 			fops.addArguments("--disable-notifications");
 			fops.addArguments("--headless");
@@ -79,12 +92,11 @@ public class BaseTest2 {
 			fops.addArguments("--window-size=1920,1080");
 			driver = new FirefoxDriver(fops);
 		} else if (browser.equalsIgnoreCase("firefox")) {
-			FirefoxOptions fops = new FirefoxOptions();
-			driver = new FirefoxDriver(fops);
+			driver = new FirefoxDriver();
 		}
 		WebDriverContext.setDriver(driver);
 		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		System.out.println("\033[1mBefore Class Ended!\033[0m");
 	}
 

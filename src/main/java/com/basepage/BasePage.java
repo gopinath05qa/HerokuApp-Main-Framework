@@ -17,7 +17,7 @@ public class BasePage {
 	protected FluentWait<WebDriver> waiter;
 
 	public BasePage(WebDriver driver) {
-		super(); // ***Just "gopi' commanded this. if face any issue un-command it. not understand of this use. so if you want to command you can command it..
+//		super(); // ***Just "gopi' commanded this. if face any issue un-command it. not understand of this use. so if you want to command you can command it..
 		this.driver = driver;
 		PageFactory.initElements(driver, this); // without this we can't access page objects.
 		waiter = new FluentWait<WebDriver>(driver)

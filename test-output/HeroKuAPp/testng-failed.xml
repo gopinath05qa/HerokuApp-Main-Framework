@@ -6,33 +6,23 @@
     <listener class-name="com.listeners.LogListener"/>
     <listener class-name="com.listeners.TransFormer"/>
   </listeners>
-  <test thread-count="5" name="Chrome FunctionalTest(failed)">
+  <test thread-count="5" name="Amazon site test with chrome browser(failed)">
+    <parameter name="headless" value="true"/>
     <parameter name="browser" value="chrome"/>
-    <groups>
-      <run>
-        <include name="First Set"/>
-        <exclude name="Second Set"/>
-        <exclude name="Third Set"/>
-        <exclude name="Fourth"/>
-      </run>
-    </groups>
     <classes>
-      <class name="org.herokuapp.com.tests.HerokuAppSetTest1">
+      <class name="org.herokuapp.com.tests.AmazonPageTest">
         <methods>
+          <include name="amazonLevel1Test"/>
           <include name="afterTest"/>
-          <include name="beforeMethod"/>
           <include name="afterMethod"/>
           <include name="setup"/>
-          <include name="addandRemoveElements"/>
+          <include name="amazonTest"/>
           <include name="globalSetup"/>
-          <include name="brokenImagesTest"/>
           <include name="beforeTest"/>
           <include name="wrapUp"/>
-          <include name="basicAuthTest"/>
-          <include name="checkBoxTest"/>
           <include name="wrapAllUp"/>
         </methods>
-      </class> <!-- org.herokuapp.com.tests.HerokuAppSetTest1 -->
+      </class> <!-- org.herokuapp.com.tests.AmazonPageTest -->
     </classes>
-  </test> <!-- Chrome FunctionalTest(failed) -->
+  </test> <!-- Amazon site test with chrome browser(failed) -->
 </suite> <!-- Failed suite [HeroKuAPp] -->

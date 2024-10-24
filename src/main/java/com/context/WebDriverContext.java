@@ -2,20 +2,12 @@ package com.context;
 
 import org.openqa.selenium.WebDriver;
 
-/**
- * The Class is responsible in maintaining single instance of webdriver in any
- * given thread.
- *
- * @author Omprakash darsi
- */
 public class WebDriverContext {
 
-	/** The driverinstance. */
-	private static InheritableThreadLocal<WebDriver> driverinstance = new InheritableThreadLocal<>();
+//	private static InheritableThreadLocal<WebDriver> driverinstance = new InheritableThreadLocal<>();  //this actual old one
 
-	/**
-	 * Gets the driver.
-	 */
+	private static ThreadLocal<WebDriver> driverinstance = new ThreadLocal<>();  //this recently created one only.
+	
 	public static WebDriver getDriver() {
 		if (driverinstance.get() == null)
 			throw new IllegalStateException(
@@ -24,18 +16,10 @@ public class WebDriverContext {
 			return driverinstance.get();
 	}
 
-	/**
-	 * Sets the driver.
-	 *
-	 * @param driver the new driver
-	 */
 	public static void setDriver(WebDriver driver) {
 		driverinstance.set(driver);
 	}
 
-	/**
-	 * Removes the driver.
-	 */
 	public static void removeDriver() {
 		driverinstance.remove();
 	}
