@@ -5,8 +5,15 @@
     <classes>
       <class name="org.herokuapp.com.tests.AmazonPageTest">
         <methods>
+          <include name="amazonLevel1Test"/>
+          <include name="afterTest"/>
+          <include name="afterMethod"/>
+          <include name="setup"/>
           <include name="amazonTest"/>
-          <include name="beforeClass"/>
+          <include name="globalSetup"/>
+          <include name="beforeTest"/>
+          <include name="wrapUp"/>
+          <include name="wrapAllUp"/>
         </methods>
       </class> <!-- org.herokuapp.com.tests.AmazonPageTest -->
     </classes>

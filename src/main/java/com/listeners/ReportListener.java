@@ -25,7 +25,7 @@ public class ReportListener implements ITestListener {
 		System.out.println("ReportListener: onTestStart");
 	}
 
-//  **Commented by Gopinath, why: on the extend report the final result screenshot two times showing. That's why commented**//	
+//  **Commented by Gopinath, why: on the extend report the final result screenshot two times showing. That's why i commented**//	
 //	@Override
 //	public void onTestSuccess(ITestResult result) {
 //		ReportUtil.addScreenShot(LogStatus.PASS, "Test Completed");

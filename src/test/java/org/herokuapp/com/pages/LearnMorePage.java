@@ -2,7 +2,6 @@ package org.herokuapp.com.pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.pageobjects.herokuapp.LearnMorePageObjects;
 
 import com.basepage.BasePage;
@@ -43,7 +42,7 @@ public class LearnMorePage extends BasePage {
 //*********************something error so holed**********************		
 //		helper.visibilityOfNoreturnElement(pageobj.hiddensecond, 10);
 //		helper.clickOnWebElement(pageobj.twelesecondwait);
-//		boolean e = helper.visibilityOfreturnElementisDisplayed(pageobj.hiddenthird, 12); // this is check true of false
+//		boolean e = helper.visibilityOfreturnElementisDisplayed(pageobj.hiddenthird, 12); // this is check true or false
 //																							// condition method
 //		System.out.println(e);
 //		helper.clickOnWebElement(pageobj.fiveecondwaitalert);
